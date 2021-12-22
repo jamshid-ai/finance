@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Prices</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <td colspan="4"></td>
+            <td style="font-weight:bold">{{ total_grand }}</td>
+        </tfoot>
+        <tbody>
+            {% for row in rows %}
+                {% if total_grand != cash %}
+                    <tr>
+                        <td>{{ row.symbol }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row["SUM(shares)"] }}</td>
+                        <td>{{ row.price_actual }}</td>
+                        <td>{{ row.total_holding  }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>{{ cash }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
